@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Special Invite 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating hearts background -->
+  <div class="hearts-bg" id="heartsBg" aria-hidden="true"></div>
+
+  <main class="stage">
+
+    <!-- STEP 1: Name & Location -->
+    <section class="card screen active" id="screen-details">
+      <div class="envelope">💌</div>
+      <p class="script">Hey you,</p>
+      <h1>Someone has a special invite for you</h1>
+      <p class="subtitle">But first, tell me a little about yourself…</p>
+
+      <form id="detailsForm" autocomplete="off" novalidate>
+        <label class="field">
+          <span>Full Name</span>
+          <input type="text" id="fullName" placeholder="Your full name" required />
+        </label>
+        <label class="field">
+          <span>Location</span>
+          <input type="text" id="location" placeholder="Where are you right now?" required />
+        </label>
+        <p class="error" id="formError"></p>
+        <button type="submit" class="btn btn-primary">Continue ✨</button>
+      </form>
+    </section>
+
+    <!-- STEP 1b: Wrong name -->
+    <section class="card screen" id="screen-wrong">
+      <div class="big-emoji wobble">🤨</div>
+      <h1>Hmm… wait a minute</h1>
+      <p class="subtitle big">
+        Why didn't you use <strong class="highlight">"Idara Etim"</strong> as your other names?
+      </p>
+      <p class="muted">Taking you back so you can fix that… 😌</p>
+      <div class="progress"><div class="progress-bar" id="redirectBar"></div></div>
+    </section>
+
+    <!-- STEP 2: Do you love me? -->
+    <section class="card screen" id="screen-love">
+      <div class="big-emoji pulse">💖</div>
+      <p class="script" id="loveGreeting">Hi love,</p>
+      <h1>Do you love me?</h1>
+      <p class="muted" id="noTaunt">&nbsp;</p>
+      <div class="love-buttons" id="loveButtons">
+        <button class="btn btn-yes" id="yesBtn">Yes 💕</button>
+        <button class="btn btn-no" id="noBtn">No 🙄</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: Choose a date -->
+    <section class="card card-wide screen" id="screen-dates">
+      <p class="script">Yay! I knew it 🥰</p>
+      <h1>Pick the date you want</h1>
+      <p class="subtitle">Choose wisely… 😉</p>
+
+      <div class="date-grid">
+        <button class="date-option locked" data-date="dancing">
+          <span class="date-emoji">💃</span>
+          <span class="date-name">Dancing Date</span>
+          <span class="lock">🔒</span>
+        </button>
+        <button class="date-option locked" data-date="bible">
+          <span class="date-emoji">📖</span>
+          <span class="date-name">Bible Date</span>
+          <span class="lock">🔒</span>
+        </button>
+        <button class="date-option locked" data-date="staycation">
+          <span class="date-emoji">🏨</span>
+          <span class="date-name">Staycation</span>
+          <span class="lock">🔒</span>
+        </button>
+        <button class="date-option locked" data-date="travel">
+          <span class="date-emoji">✈️</span>
+          <span class="date-name">Traveling</span>
+          <span class="lock">🔒</span>
+        </button>
+        <button class="date-option available" data-date="shopping" id="shoppingBtn">
+          <span class="date-emoji">🛍️</span>
+          <span class="date-name">Shopping Date</span>
+          <span class="badge">Available ✨</span>
+        </button>
+      </div>
+      <p class="muted" id="lockedMsg">&nbsp;</p>
+    </section>
+
+    <!-- STEP 4: Special info -->
+    <section class="card screen" id="screen-final">
+      <div class="big-emoji float">🛍️💝</div>
+      <p class="script">It's a date,</p>
+      <h1 id="finalName">My Love</h1>
+      <p class="subtitle">You're officially invited on a <strong class="highlight">Shopping Date</strong> with me!</p>
+
+      <div class="ticket">
+        <div class="ticket-row">
+          <span class="ticket-label">📍 Where</span>
+          <span class="ticket-value" id="meetPlace"></span>
+        </div>
+        <div class="ticket-divider"></div>
+        <div class="ticket-row">
+          <span class="ticket-label">📅 Date</span>
+          <span class="ticket-value" id="meetDate"></span>
+        </div>
+        <div class="ticket-divider"></div>
+        <div class="ticket-row">
+          <span class="ticket-label">⏰ Time</span>
+          <span class="ticket-value" id="meetTime"></span>
+        </div>
+      </div>
+
+      <p class="note" id="meetNote"></p>
+      <p class="signoff">With all my love, <span class="script inline">Idara</span> ❤️</p>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
