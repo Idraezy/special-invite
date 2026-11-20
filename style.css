@@ -292,7 +292,7 @@ form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
   background: linear-gradient(90deg, var(--pink-300), var(--pink-600));
   border-radius: 999px;
 }
-.progress-bar.run { animation: fill 3.5s linear forwards; }
+.progress-bar.run { animation: fill 7s linear forwards; }
 @keyframes fill { to { width: 100%; } }
 
 /* ---------- Misc animations ---------- */

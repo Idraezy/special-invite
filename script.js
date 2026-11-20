@@ -90,7 +90,7 @@ $("#detailsForm").addEventListener("submit", (e) => {
       showScreen("screen-details");
       $("#fullName").focus();
       $("#fullName").select();
-    }, 3500);
+    }, 7000);
     return;
   }
 
