@@ -2,9 +2,9 @@
    ✏️  EDIT THESE DETAILS — where and when you'll meet her
    ================================================================ */
 const DATE_DETAILS = {
-  place: "To be revealed soon 😉",
-  date:  "Coming soon…",
-  time:  "Coming soon…",
+  place: "Tantalizers",
+  date:  "Monday, 23rd November",
+  time:  "1:00 PM prompt ⏰",
   note:  "Wear something comfy and bring your beautiful smile 💕",
 };
 
@@ -193,3 +193,99 @@ $("#shoppingBtn").addEventListener("click", (e) => {
 window.addEventListener("resize", () => {
   if (noBtn.classList.contains("runaway")) moveNoButton();
 });
+
+/* ---------- Background music: Happy Birthday (music-box style) ---------- */
+// Melody as [note, startBeat, lengthInBeats]
+const MELODY = [
+  ["G4", 0, .75], ["G4", .75, .25], ["A4", 1, 1], ["G4", 2, 1], ["C5", 3, 1], ["B4", 4, 2],
+  ["G4", 6, .75], ["G4", 6.75, .25], ["A4", 7, 1], ["G4", 8, 1], ["D5", 9, 1], ["C5", 10, 2],
+  ["G4", 12, .75], ["G4", 12.75, .25], ["G5", 13, 1], ["E5", 14, 1], ["C5", 15, 1], ["B4", 16, 1], ["A4", 17, 2],
+  ["F5", 19, .75], ["F5", 19.75, .25], ["E5", 20, 1], ["C5", 21, 1], ["D5", 22, 1], ["C5", 23, 3],
+];
+// Soft bass/chord notes underneath
+const BASS = [
+  [["C3", "E3", "G3"], 1, 3], [["G2", "B2", "D3"], 4, 3], [["G2", "B2", "F3"], 7, 3], [["C3", "E3", "G3"], 10, 3],
+  [["C3", "E3", "G3"], 13, 3], [["F2", "A2", "C3"], 16, 3], [["C3", "E3", "G3"], 20, 2], [["G2", "B2", "D3"], 22, 1],
+  [["C3", "E3", "G3"], 23, 3],
+];
+const LOOP_BEATS = 28;
+const BEAT = 60 / 100; // 100 BPM
+
+function noteFreq(n) {
+  const names = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  const semis = names[n[0]] + (parseInt(n.slice(-1)) + 1) * 12;
+  return 440 * Math.pow(2, (semis - 69) / 12);
+}
+
+let audioCtx = null, master = null, loopTimer = null, musicOn = false;
+
+function playTone(freq, start, dur, vol, bright) {
+  const osc = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "sine";
+  osc2.type = "triangle";
+  osc.frequency.value = freq;
+  osc2.frequency.value = freq * (bright ? 2 : 1);
+  const g2 = audioCtx.createGain();
+  g2.gain.value = bright ? 0.15 : 0.3;
+  osc.connect(gain);
+  osc2.connect(g2).connect(gain);
+  gain.connect(master);
+  const end = start + Math.max(dur, 0.4) + 0.6;
+  gain.gain.setValueAtTime(0, start);
+  gain.gain.linearRampToValueAtTime(vol, start + 0.015);
+  gain.gain.exponentialRampToValueAtTime(0.001, end);
+  osc.start(start); osc2.start(start);
+  osc.stop(end); osc2.stop(end);
+}
+
+function scheduleLoop() {
+  const t0 = audioCtx.currentTime + 0.1;
+  MELODY.forEach(([n, b, l]) => playTone(noteFreq(n), t0 + b * BEAT, l * BEAT, 0.35, true));
+  BASS.forEach(([notes, b, l]) =>
+    notes.forEach((n) => playTone(noteFreq(n), t0 + b * BEAT, l * BEAT, 0.08, false))
+  );
+  loopTimer = setTimeout(scheduleLoop, LOOP_BEATS * BEAT * 1000);
+}
+
+const musicBtn = $("#musicBtn");
+
+function startMusic() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    master = audioCtx.createGain();
+    master.gain.value = 0.35;
+    master.connect(audioCtx.destination);
+    scheduleLoop();
+  }
+  audioCtx.resume();
+  musicOn = true;
+  musicBtn.textContent = "🎵";
+  musicBtn.classList.remove("waiting");
+  musicBtn.classList.add("playing");
+}
+
+function stopMusic() {
+  if (audioCtx) audioCtx.suspend();
+  musicOn = false;
+  musicBtn.textContent = "🔇";
+  musicBtn.classList.remove("playing");
+}
+
+musicBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  musicOn ? stopMusic() : startMusic();
+});
+
+// Browsers only allow sound after the first tap/key press, so start then
+function firstInteraction(e) {
+  if (e && musicBtn.contains(e.target)) return; // the button handles itself
+  if (!audioCtx) startMusic();
+  ["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+    document.removeEventListener(ev, firstInteraction)
+  );
+}
+["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+  document.addEventListener(ev, firstInteraction)
+);

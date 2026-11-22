@@ -332,3 +332,26 @@ form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
   .date-option { padding: 18px 8px; }
   .date-emoji { font-size: 1.9rem; }
 }
+
+/* ---------- Music button ---------- */
+.music-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 60;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(176, 32, 79, 0.25);
+  transition: transform .2s;
+}
+.music-btn:hover { transform: scale(1.08); }
+.music-btn.waiting { animation: pulse 1.4s ease-in-out infinite; }
+.music-btn.playing { animation: spin 4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
