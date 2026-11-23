@@ -63,67 +63,55 @@
       </div>
     </section>
 
-    <!-- STEP 3: Choose a date -->
-    <section class="card card-wide screen" id="screen-dates">
+    <!-- STEP 3: Love note -->
+    <section class="card card-wide screen" id="screen-note">
       <p class="script">Yay! I knew it 🥰</p>
-      <h1>Pick the date you want</h1>
-      <p class="subtitle">Choose wisely… 😉</p>
-
-      <div class="date-grid">
-        <button class="date-option locked" data-date="dancing">
-          <span class="date-emoji">💃</span>
-          <span class="date-name">Dancing Date</span>
-          <span class="lock">🔒</span>
-        </button>
-        <button class="date-option locked" data-date="bible">
-          <span class="date-emoji">📖</span>
-          <span class="date-name">Bible Date</span>
-          <span class="lock">🔒</span>
-        </button>
-        <button class="date-option locked" data-date="staycation">
-          <span class="date-emoji">🏨</span>
-          <span class="date-name">Staycation</span>
-          <span class="lock">🔒</span>
-        </button>
-        <button class="date-option locked" data-date="travel">
-          <span class="date-emoji">✈️</span>
-          <span class="date-name">Traveling</span>
-          <span class="lock">🔒</span>
-        </button>
-        <button class="date-option available" data-date="shopping" id="shoppingBtn">
-          <span class="date-emoji">🛍️</span>
-          <span class="date-name">Shopping Date</span>
-          <span class="badge">Available ✨</span>
-        </button>
+      <h1>A little note for you 💌</h1>
+      <div class="love-note">
+        <p class="note-greeting">Hi Faith,</p>
+        <p>It's I again Idara your guy yunno🤞.. yunno I noticed we have celebrated you so much this year and I so much love it because you deserve it and more... I pray more celebrations come your way and more congratulations to your name.</p>
+        <p>You see, there's literally no one that knows me better than you do and it's scarily cute... the love I have for you, the way I feel about you everything about me just rotates round you..and I don't know how to really thank God for a lady like you Faith. I'll never stop telling you this, you're a blessing to me... everything you do everything you say. I observe you closely and take notes of you, I learn from you alot and try to practically practice the way you're so flexible, brilliant and agile you are..</p>
+        <p class="note-sign">— Idara ❤️</p>
       </div>
-      <p class="muted" id="lockedMsg">&nbsp;</p>
+      <button class="btn btn-primary" id="noteNextBtn">Continue 💕</button>
     </section>
 
-    <!-- STEP 4: Special info -->
-    <section class="card screen" id="screen-final">
-      <div class="big-emoji float">🛍️💝</div>
-      <p class="script">It's a date,</p>
-      <h1 id="finalName">My Love</h1>
-      <p class="subtitle">You're officially invited on a <strong class="highlight">Shopping Date</strong> with me!</p>
+    <!-- STEP 4: Where are you? -->
+    <section class="card screen" id="screen-where">
+      <div class="big-emoji wobble">👀</div>
+      <h1>Faith, where are you right now?</h1>
+      <p class="subtitle">Tell me exactly where you are 📍</p>
+      <form id="whereForm" autocomplete="off" novalidate>
+        <label class="field">
+          <span>Your location</span>
+          <input type="text" id="whereInput" placeholder="e.g. at home, Lekki Phase 1" required />
+        </label>
+        <p class="error" id="whereError"></p>
+        <button type="submit" class="btn btn-primary">Here I am 📍</button>
+      </form>
+    </section>
 
+    <!-- STEP 5: Come out! -->
+    <section class="card screen" id="screen-final">
+      <div class="big-emoji float">🚗💨</div>
+      <p class="script">Get ready, Faith,</p>
+      <h1>Come out to Tantalizers! 🎉</h1>
+      <p class="subtitle big">
+        A <strong class="highlight">Bolt</strong> is coming to pick you up
+        <span id="pickupFrom"></span> in the <strong class="highlight">next 1 hour</strong>. Be ready! ⏰
+      </p>
       <div class="ticket">
         <div class="ticket-row">
-          <span class="ticket-label">📍 Where</span>
-          <span class="ticket-value" id="meetPlace"></span>
+          <span class="ticket-label">🚗 Ride</span>
+          <span class="ticket-value">Bolt, arriving within 1 hour</span>
         </div>
         <div class="ticket-divider"></div>
         <div class="ticket-row">
-          <span class="ticket-label">📅 Date</span>
-          <span class="ticket-value" id="meetDate"></span>
-        </div>
-        <div class="ticket-divider"></div>
-        <div class="ticket-row">
-          <span class="ticket-label">⏰ Time</span>
-          <span class="ticket-value" id="meetTime"></span>
+          <span class="ticket-label">📍 Destination</span>
+          <span class="ticket-value">Tantalizers</span>
         </div>
       </div>
-
-      <p class="note" id="meetNote"></p>
+      <p class="subtitle big">When you get to Tantalizers, <strong class="highlight">call the love of your life</strong> 📞❤️</p>
       <p class="signoff">With all my love, <span class="script inline">Idara</span> ❤️</p>
     </section>
 

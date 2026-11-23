@@ -1,13 +1,3 @@
-/* ================================================================
-   ✏️  EDIT THESE DETAILS — where and when you'll meet her
-   ================================================================ */
-const DATE_DETAILS = {
-  place: "Tantalizers",
-  date:  "Monday, 23rd November",
-  time:  "1:00 PM prompt ⏰",
-  note:  "Wear something comfy and bring your beautiful smile 💕",
-};
-
 // The name that must appear in her full name
 const REQUIRED_NAME = "Idara Etim";
 
@@ -16,6 +6,7 @@ const REQUIRED_NAME = "Idara Etim";
 const $ = (sel) => document.querySelector(sel);
 
 let herFirstName = "";
+let herLocation = "";
 
 /* ---------- Screen navigation ---------- */
 function showScreen(id) {
@@ -77,6 +68,7 @@ $("#detailsForm").addEventListener("submit", (e) => {
     return;
   }
   error.textContent = "";
+  herLocation = location;
 
   const hasRequiredName = fullName.toLowerCase().includes(REQUIRED_NAME.toLowerCase());
 
@@ -152,41 +144,35 @@ yesBtn.addEventListener("click", (e) => {
   burst(e.clientX, e.clientY, 26);
   noBtn.classList.remove("runaway");
   noBtn.style.left = noBtn.style.top = "";
-  setTimeout(() => showScreen("screen-dates"), 700);
+  setTimeout(() => showScreen("screen-note"), 700);
 });
 
-/* ---------- STEP 3: Choose date ---------- */
-const LOCKED_MSGS = [
-  "Not today, love 😌",
-  "That one's locked 🔒",
-  "Hmm… try another one 👀",
-  "Nope! Keep looking 😉",
-];
-document.querySelectorAll(".date-option.locked").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    shake(btn);
-    $("#lockedMsg").textContent = LOCKED_MSGS[Math.floor(Math.random() * LOCKED_MSGS.length)];
-  });
+/* ---------- STEP 3: Love note ---------- */
+$("#noteNextBtn").addEventListener("click", () => {
+  $("#whereInput").value = herLocation;
+  showScreen("screen-where");
 });
 
-$("#shoppingBtn").addEventListener("click", (e) => {
-  burst(e.clientX, e.clientY, 30);
-  $("#finalName").textContent = herFirstName ? `${herFirstName} 💕` : "My Love 💕";
-  $("#meetPlace").textContent = DATE_DETAILS.place;
-  $("#meetDate").textContent = DATE_DETAILS.date;
-  $("#meetTime").textContent = DATE_DETAILS.time;
-  $("#meetNote").textContent = DATE_DETAILS.note;
-  setTimeout(() => {
-    showScreen("screen-final");
-    // celebration bursts
-    for (let i = 0; i < 4; i++) {
-      setTimeout(() => burst(
-        window.innerWidth * (0.2 + Math.random() * 0.6),
-        window.innerHeight * (0.2 + Math.random() * 0.4),
-        20
-      ), i * 350);
-    }
-  }, 700);
+/* ---------- STEP 4: Where are you? ---------- */
+$("#whereForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const where = $("#whereInput").value.trim();
+  if (!where) {
+    $("#whereError").textContent = "Tell me where you are, love 🥺";
+    shake($("#whereForm"));
+    return;
+  }
+  $("#whereError").textContent = "";
+  $("#pickupFrom").textContent = `from ${where}`;
+  showScreen("screen-final");
+  // celebration bursts
+  for (let i = 0; i < 4; i++) {
+    setTimeout(() => burst(
+      window.innerWidth * (0.2 + Math.random() * 0.6),
+      window.innerHeight * (0.2 + Math.random() * 0.4),
+      20
+    ), i * 350);
+  }
 });
 
 // Keep the runaway "No" button on-screen if the window is resized
