@@ -10,8 +10,10 @@ let herLocation = "";
 
 /* ---------- Screen navigation ---------- */
 function showScreen(id) {
+  const next = $("#" + id);
+  if (!next) return; // never leave the page blank
   document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
-  $("#" + id).classList.add("active");
+  next.classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
